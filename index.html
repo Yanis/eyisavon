@@ -19,7 +19,7 @@
             letter-spacing: 0.05em;
         }
         .hero-image {
-            background-image: url('https://images.unsplash.com/photo-1600959907703-f2bf242a4ba8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-image: url('hero-image-eyisavon.png');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -78,6 +78,157 @@
             background-size: cover;
             background-position: center;
         }
+
+        /* Layout des cartes */
+        .articles-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        /* Styles pour les cartes d'articles */
+        .article-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Styles pour les modales */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-container {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 4px;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .modal-content {
+            padding: 0;
+        }
+        
+        .article-header {
+            position: relative;
+            padding-bottom: 50%;
+        }
+        
+        .article-header img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .article-body {
+            padding: 32px;
+        }
+        
+        .article-category {
+            color: #B38A58;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .article-title {
+            color: #5F694F;
+            font-size: 28px;
+            margin: 16px 0;
+            line-height: 1.3;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .article-meta img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+        
+        .article-content p {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .article-quote {
+            border-left: 3px solid #B38A58;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #5F694F;
+        }
+
     </style>
 </head>
 <body class="antialiased">
@@ -86,14 +237,14 @@
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <a href="#" class="text-2xl serif text-[#5F694F]">EYISAVON</a>
+                    <a href="#accueil" class="text-2xl serif text-[#5F694F]">EYISAVON</a>
                 </div>
                 <div class="hidden md:flex space-x-10">
-                    <a href="#" class="nav-link text-[#5F694F]">Collections</a>
-                    <a href="#" class="nav-link text-[#5F694F]">Philosophie</a>
-                    <a href="#" class="nav-link text-[#5F694F]">Ingrédients</a>
-                    <a href="#" class="nav-link text-[#5F694F]">Journal</a>
-                    <a href="#" class="nav-link text-[#5F694F]">Contact</a>
+                    <a href="#collection" class="nav-link text-[#5F694F]">Collections</a>
+                    <a href="#creation" class="nav-link text-[#5F694F]">Créations</a>
+                    <a href="#philosophie" class="nav-link text-[#5F694F]">Philosophie</a>
+                    <a href="#journal" class="nav-link text-[#5F694F]">Journal</a>
+                    <a href="#contact" class="nav-link text-[#5F694F]">Contact</a>
                 </div>
                 <div class="flex items-center space-x-6">
                     <a href="#" class="text-[#5F694F]"><i class="far fa-search"></i></a>
@@ -129,12 +280,12 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="hero-image relative">
+    <section id="accueil" class="hero-image relative">
         <div class="absolute inset-0 bg-black bg-opacity-20"></div>
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
             <h1 class="text-5xl md:text-7xl serif text-white mb-8">L'Essence de la Nature</h1>
             <p class="text-xl text-white max-w-2xl mb-12">Des cosmétiques artisanaux où chaque ingrédient raconte une histoire</p>
-            <a href="#" class="border border-white text-white px-8 py-3 hover:bg-white hover:text-[#5F694F] transition duration-300">Découvrir</a>
+            <a href="#creation" class="border border-white text-white px-8 py-3 hover:bg-white hover:text-[#5F694F] transition duration-300">Découvrir</a>
         </div>
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 scroll-indicator">
             <i class="fas fa-chevron-down text-white text-2xl"></i>
@@ -153,14 +304,14 @@
     </section>
 
     <!-- Collections -->
-    <section class="py-12 bg-white">
+    <section id="collection"  class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-3xl serif text-[#5F694F] text-center mb-16">Nos Collections Signature</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Collection 1 -->
                 <div class="relative h-96 overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1600959907703-f2bf242a4ba8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Forêt Ancienne" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                    <img src="foret_ancienne.png">
                     <div class="absolute inset-0 bg-black bg-opacity-30 flex items-end p-8">
                         <div>
                             <h3 class="text-2xl serif text-white mb-2">Forêt Ancienne</h3>
@@ -198,7 +349,7 @@
     </section>
 
     <!-- Featured Products -->
-    <section class="py-20">
+    <section id="creation" class="py-20">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-3xl serif text-[#5F694F] text-center mb-4">Nos Créations</h2>
             <p class="text-center text-[#5F694F] mb-16">Des formulations uniques pour des rituels sensoriels</p>
@@ -207,9 +358,9 @@
                 <!-- Product 1 -->
                 <div class="product-card relative">
                     <div class="relative overflow-hidden mb-4" style="padding-bottom: 125%;">
-                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Savon Forêt Noire" class="absolute inset-0 w-full h-full object-cover">
+                        <img src="eyisavon2.png" alt="Savon Forêt Noire" class="absolute inset-0 w-full h-full object-cover">
                         <div class="product-overlay absolute inset-0 opacity-0 flex items-center justify-center">
-                            <button class="border border-[#5F694F] text-[#5F694F] px-6 py-2 hover:bg-[#5F694F] hover:text-white transition duration-300">Voir le détail</button>
+                            <button class="border border-[#5F694F] text-[#5F694F] px-6 py-2 hover:bg-[#5F694F] hover:text-white transition duration-300" onclick="openModal('modal1')">Voir le détail</button>
                         </div>
                     </div>
                     <div class="text-center">
@@ -231,7 +382,7 @@
                     <div class="relative overflow-hidden mb-4" style="padding-bottom: 125%;">
                         <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sérum Botanique" class="absolute inset-0 w-full h-full object-cover">
                         <div class="product-overlay absolute inset-0 opacity-0 flex items-center justify-center">
-                            <button class="border border-[#5F694F] text-[#5F694F] px-6 py-2 hover:bg-[#5F694F] hover:text-white transition duration-300">Voir le détail</button>
+                            <button class="border border-[#5F694F] text-[#5F694F] px-6 py-2 hover:bg-[#5F694F] hover:text-white transition duration-300" onclick="openModal('modal2')">Voir le détail</button>
                         </div>
                     </div>
                     <div class="text-center">
@@ -242,7 +393,7 @@
                             <i class="fas fa-leaf"></i>
                             <i class="fas fa-leaf"></i>
                             <i class="fas fa-leaf"></i>
-                            <i class="fas fa-leaf-half-alt"></i>
+                            <i class="far fa-leaf"></i>
                         </div>
                         <p class="text-[#B38A58]">78€</p>
                     </div>
@@ -251,9 +402,9 @@
                 <!-- Product 3 -->
                 <div class="product-card relative">
                     <div class="relative overflow-hidden mb-4" style="padding-bottom: 125%;">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Baume d'Orient" class="absolute inset-0 w-full h-full object-cover">
+                        <img src="baumeeyi.png" alt="Baume d'Orient" class="absolute inset-0 w-full h-full object-cover">
                         <div class="product-overlay absolute inset-0 opacity-0 flex items-center justify-center">
-                            <button class="border border-[#5F694F] text-[#5F694F] px-6 py-2 hover:bg-[#5F694F] hover:text-white transition duration-300">Voir le détail</button>
+                            <button class="border border-[#5F694F] text-[#5F694F] px-6 py-2 hover:bg-[#5F694F] hover:text-white transition duration-300" onclick="openModal('modal3')">Voir le détail</button>
                         </div>
                     </div>
                     <div class="text-center">
@@ -273,9 +424,9 @@
                 <!-- Product 4 -->
                 <div class="product-card relative">
                     <div class="relative overflow-hidden mb-4" style="padding-bottom: 125%;">
-                        <img src="https://images.unsplash.com/photo-1596755094514-87a40daefc3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lait d'Éveil" class="absolute inset-0 w-full h-full object-cover">
+                        <img src="laiteyi.png" alt="Lait d'Éveil" class="absolute inset-0 w-full h-full object-cover">
                         <div class="product-overlay absolute inset-0 opacity-0 flex items-center justify-center">
-                            <button class="border border-[#5F694F] text-[#5F694F] px-6 py-2 hover:bg-[#5F694F] hover:text-white transition duration-300">Voir le détail</button>
+                            <button class="border border-[#5F694F] text-[#5F694F] px-6 py-2 hover:bg-[#5F694F] hover:text-white transition duration-300" onclick="openModal('modal4')">Voir le détail</button>
                         </div>
                     </div>
                     <div class="text-center">
@@ -297,10 +448,229 @@
                 <a href="#" class="border border-[#5F694F] text-[#5F694F] px-8 py-3 hover:bg-[#5F694F] hover:text-white transition duration-300">Voir toute la collection</a>
             </div>
         </div>
+        
+        <!-- Modales pour chaque produit -->
+        <!-- Modal 1 -->
+        <div id="modal1" class="modal fixed inset-0 flex items-center justify-center z-50">
+            <div class="modal-backdrop fixed inset-0 bg-black bg-opacity-50" onclick="closeModal('modal1')"></div>
+            <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 z-10">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="serif text-2xl text-[#5F694F]">Savon Forêt Noire</h3>
+                    <button onclick="closeModal('modal1')" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="aspect-square overflow-hidden rounded">
+                        <img src="eyisavon2.png" alt="Savon Forêt Noire" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">Édition limitée</p>
+                        <div class="leaf-rating mb-2">
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <p class="text-[#B38A58] text-xl mb-3">42€</p>
+                        <p class="text-gray-700 mb-4">Un savon artisanal aux extraits de charbon actif et de baies sauvages, pour une expérience purifiante et revitalisante.</p>
+                        <ul class="text-sm text-gray-600 mb-4">
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> 100% ingrédients naturels</li>
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Sans parabènes</li>
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Non testé sur les animaux</li>
+                            <li><i class="fas fa-check text-[#5F694F] mr-2"></i> Emballage éco-responsable</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 pt-4">
+                    <button class="w-full bg-[#5F694F] text-white py-2 rounded hover:bg-[#4A5340] transition duration-300">Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal 2 -->
+        <div id="modal2" class="modal fixed inset-0 flex items-center justify-center z-50">
+            <div class="modal-backdrop fixed inset-0 bg-black bg-opacity-50" onclick="closeModal('modal2')"></div>
+            <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 z-10">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="serif text-2xl text-[#5F694F]">Sérum Botanique</h3>
+                    <button onclick="closeModal('modal2')" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="aspect-square overflow-hidden rounded">
+                        <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sérum Botanique" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">Extraits de plantes rares</p>
+                        <div class="leaf-rating mb-2">
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="far fa-leaf"></i>
+                        </div>
+                        <p class="text-[#B38A58] text-xl mb-3">78€</p>
+                        <p class="text-gray-700 mb-4">Ce sérum luxueux combine des extraits de plantes rares cueillies à la main pour une peau éclatante et régénérée.</p>
+                        <ul class="text-sm text-gray-600 mb-4">
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Riche en antioxydants</li>
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Idéal pour peaux matures</li>
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Texture légère non grasse</li>
+                            <li><i class="fas fa-check text-[#5F694F] mr-2"></i> Flacon en verre recyclable</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 pt-4">
+                    <button class="w-full bg-[#5F694F] text-white py-2 rounded hover:bg-[#4A5340] transition duration-300">Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal 3 -->
+        <div id="modal3" class="modal fixed inset-0 flex items-center justify-center z-50">
+            <div class="modal-backdrop fixed inset-0 bg-black bg-opacity-50" onclick="closeModal('modal3')"></div>
+            <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 z-10">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="serif text-2xl text-[#5F694F]">Baume d'Orient</h3>
+                    <button onclick="closeModal('modal3')" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="aspect-square overflow-hidden rounded">
+                        <img src="baumeeyi.png" alt="Baume d'Orient" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">Huiles précieuses</p>
+                        <div class="leaf-rating mb-2">
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="far fa-leaf"></i>
+                        </div>
+                        <p class="text-[#B38A58] text-xl mb-3">65€</p>
+                        <p class="text-gray-700 mb-4">Un baume riche aux huiles précieuses d'argan et d'amande douce pour nourrir intensément les peaux sèches.</p>
+                        <ul class="text-sm text-gray-600 mb-4">
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Hydratation longue durée</li>
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Parfum naturel aux notes orientales</li>
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Texture fondante non collante</li>
+                            <li><i class="fas fa-check text-[#5F694F] mr-2"></i> Pot en verre réutilisable</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 pt-4">
+                    <button class="w-full bg-[#5F694F] text-white py-2 rounded hover:bg-[#4A5340] transition duration-300">Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal 4 -->
+        <div id="modal4" class="modal fixed inset-0 flex items-center justify-center z-50">
+            <div class="modal-backdrop fixed inset-0 bg-black bg-opacity-50" onclick="closeModal('modal4')"></div>
+            <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 z-10">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="serif text-2xl text-[#5F694F]">Lait d'Éveil</h3>
+                    <button onclick="closeModal('modal4')" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="aspect-square overflow-hidden rounded">
+                        <img src="laiteyi.png" alt="Lait d'Éveil" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">Pour une peau nourrie</p>
+                        <div class="leaf-rating mb-2">
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <p class="text-[#B38A58] text-xl mb-3">58€</p>
+                        <p class="text-gray-700 mb-4">Une formule légère et revigorante enrichie en vitamines et en extraits d'agrumes pour réveiller l'éclat naturel de votre peau.</p>
+                        <ul class="text-sm text-gray-600 mb-4">
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Effet énergisant immédiat</li>
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Formule légère</li>
+                            <li class="mb-1"><i class="fas fa-check text-[#5F694F] mr-2"></i> Adapté à tous types de peau</li>
+                            <li><i class="fas fa-check text-[#5F694F] mr-2"></i> Format pratique pour les voyages</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 pt-4">
+                    <button class="w-full bg-[#5F694F] text-white py-2 rounded hover:bg-[#4A5340] transition duration-300">Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+    
+        <style>
+            /* Animation pour les modales */
+            .modal {
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .modal.active {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            /* Animation pour le contenu de la modale */
+            .modal-content {
+                transform: translateY(-20px);
+                transition: all 0.3s ease;
+            }
+            
+            .modal.active .modal-content {
+                transform: translateY(0);
+            }
+            
+            /* Style pour le hover sur les cartes produit */
+            .product-card:hover .product-overlay {
+                opacity: 1;
+                background-color: rgba(255, 255, 255, 0.7);
+                transition: all 0.3s ease;
+            }
+            
+            /* Style pour la notation en feuilles */
+            .leaf-rating i {
+                color: #5F694F;
+                margin: 0 1px;
+            }
+        </style>
+    
+        <script>
+            // Fonction pour ouvrir une modale
+            function openModal(modalId) {
+                document.getElementById(modalId).classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement de la page
+            }
+            
+            // Fonction pour fermer une modale
+            function closeModal(modalId) {
+                document.getElementById(modalId).classList.remove('active');
+                document.body.style.overflow = ''; // Réactiver le défilement de la page
+            }
+            
+            // Fermer la modale si l'utilisateur clique sur la touche Escape
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    const modals = document.querySelectorAll('.modal.active');
+                    modals.forEach(modal => {
+                        const modalId = modal.getAttribute('id');
+                        closeModal(modalId);
+                    });
+                }
+            });
+        </script>
     </section>
 
     <!-- Philosophy -->
-    <section class="marble-bg py-20 text-white">
+    <section id="philosophie" class="marble-bg py-20 text-brown">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
@@ -311,36 +681,75 @@
                     <p class="mb-8 leading-relaxed">
                         Nos emballages sont conçus pour être réutilisés ou compostés, et pour chaque produit vendu, nous plantons un arbre dans nos forêts partenaires.
                     </p>
-                    <a href="#" class="border border-white text-white px-6 py-2 hover:bg-white hover:text-[#5F694F] transition duration-300">En savoir plus</a>
+                    <a href="#" class="border border-brown text-brown px-6 py-2 hover:bg-white hover:text-[#5F694F] transition duration-300">En savoir plus</a>
                 </div>
                 <div class="relative" style="padding-bottom: 75%;">
-                    <img src="https://images.unsplash.com/photo-1600880292203-75704362ea4c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Artisanat" class="absolute inset-0 w-full h-full object-cover">
+                    <img src="eyisavon1.png" alt="Artisanat" class="absolute inset-0 w-full h-full object-cover">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Journal -->
-    <section class="py-20 bg-[#F8F4E3]">
+    <section id="journal" class="py-20 bg-[#F8F4E3]">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-3xl serif text-[#5F694F] text-center mb-16">Notre Journal</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Article 1 -->
-                <div class="bg-white">
+                <div class="article-card" data-modal-target="article1">
                     <div class="relative" style="padding-bottom: 75%;">
-                        <img src="https://images.unsplash.com/photo-1545205597-3d9d398c2152?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Rituel du matin" class="absolute inset-0 w-full h-full object-cover">
+                        <img src="beaute_rituel.png" alt="Rituel du matin" class="absolute inset-0 w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <span class="text-sm text-[#B38A58]">BEAUTÉ</span>
                         <h3 class="serif text-xl text-[#5F694F] my-3">Le Rituel du Matin</h3>
                         <p class="text-gray-600 mb-4">Comment commencer sa journée en harmonie avec soi-même et la nature.</p>
-                        <a href="#" class="text-[#5F694F] border-b border-[#5F694F] pb-1">Lire l'article</a>
+                        <a href="#" class="text-[#5F694F] border-b border-[#5F694F] pb-1" data-modal-target="article1">Lire l'article</a>
+                    </div>
+                </div>
+
+                <div class="modal-overlay" id="modal-article1">
+                    <div class="modal-container">
+                        <div class="modal-close">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <div class="modal-content">
+                            <div class="article-header">
+                                <img src="beaute_rituel.png" alt="Rencontre avec Marie">
+                            </div>
+                            <div class="article-body">
+                                <div class="article-category">BEAUTÉ</div>
+                                <h1 class="article-title serif">Le Rituel du Matin : L'Art de Commencer Sa Journée en Harmonie</h1>
+                                
+                                <div class="article-meta">
+                                    <img src="/api/placeholder/100/100" alt="Auteur">
+                                    <div>
+                                        <div>Par Claire Fontaine</div>
+                                        <div>12 mai 2025 · 7 min de lecture</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-content">
+                                    <p>Dans notre monde hyperconnecté où chaque minute compte, nous avons progressivement perdu l'art des rituels quotidiens. Pourtant, la façon dont nous abordons les premières heures du jour influence profondément notre équilibre général. Redécouvrir un rituel matinal conscient, c'est s'offrir un moment précieux d'ancrage et de préparation.</p>
+                                    
+                                    <p>Le réveil représente une transition délicate entre deux états de conscience. Notre peau, notre esprit et notre corps tout entier ont besoin d'être accompagnés dans ce passage. Un rituel de beauté holistique ne se limite pas à l'application mécanique de produits, mais intègre une dimension sensorielle et contemplative essentielle à notre bien-être.</p>
+                                    
+                                    <div class="article-quote serif">
+                                        "Le matin n'est pas seulement le début d'une journée, c'est une renaissance quotidienne, une opportunité de redéfinir notre relation au monde et à nous-même."
+                                    </div>
+                                    
+                                    <p>La lumière matinale, particulièrement riche en longueurs d'ondes bleues, aide à réguler notre horloge biologique. Prendre quelques minutes pour accueillir cette lumière, idéalement près d'une fenêtre ou mieux encore, à l'extérieur, permet de synchroniser nos rythmes circadiens et d'améliorer la qualité de notre sommeil futur.</p>
+                                    
+                                    <p>Le contact de l'eau fraîche sur la peau constitue une étape fondamentale de ce rituel. Au-delà de son action purifiante, elle stimule la microcirculation et réveille les sens. C'est à ce moment que la peau, parfaitement réceptive, bénéficiera pleinement des actifs botaniques de nos soins formulés pour respecter son équilibre naturel.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Article 2 -->
-                <div class="bg-white">
+                <div class="article-card" data-modal-target="article2">
                     <div class="relative" style="padding-bottom: 75%;">
                         <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Ingrédients" class="absolute inset-0 w-full h-full object-cover">
                     </div>
@@ -348,12 +757,51 @@
                         <span class="text-sm text-[#B38A58]">INGRÉDIENTS</span>
                         <h3 class="serif text-xl text-[#5F694F] my-3">Les Secrets de l'Épicéa</h3>
                         <p class="text-gray-600 mb-4">Découvrez les bienfaits méconnus de cet arbre ancestral pour votre peau.</p>
-                        <a href="#" class="text-[#5F694F] border-b border-[#5F694F] pb-1">Lire l'article</a>
+                        <a href="#" class="text-[#5F694F] border-b border-[#5F694F] pb-1" data-modal-target="article2">Lire l'article</a>
+                    </div>
+                </div>
+
+                <div class="modal-overlay" id="modal-article2">
+                    <div class="modal-container">
+                        <div class="modal-close">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <div class="modal-content">
+                            <div class="article-header">
+                                <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Rencontre avec Marie">
+                            </div>
+                            <div class="article-body">
+                                <div class="article-category">INGRÉDIENTS</div>
+                                <h1 class="article-title serif">Les Secrets de l'Épicéa : Trésor Oublié des Forêts Nordiques</h1>
+                                
+                                <div class="article-meta">
+                                    <img src="/api/placeholder/100/100" alt="Auteur">
+                                    <div>
+                                        <div>Par Marc Lenoir</div>
+                                        <div>3 avril 2025 · 5 min de lecture</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-content">
+                                    <p>Majestueux gardien des forêts septentrionales, l'épicéa ne se contente pas d'offrir son bois précieux à l'ébénisterie ou son parfum envoûtant aux fêtes de fin d'année. Cet arbre millénaire recèle des propriétés cosmétiques exceptionnelles que nos ancêtres connaissaient bien, mais que nous avons progressivement oubliées au profit d'ingrédients plus exotiques.</p>
+                                    
+                                    <p>La résine d'épicéa, riche en composés terpéniques et en acides résiniques, constitue un véritable bouclier naturel pour la peau. Ces molécules complexes, forgées par l'arbre pour se défendre contre les agressions extérieures, confèrent à notre épiderme une protection similaire contre les radicaux libres et les agressions environnementales.</p>
+                                    
+                                    <div class="article-quote serif">
+                                        "L'épicéa est un maître de résilience. Il survit dans des conditions extrêmes, et cette force se transmet à notre peau lorsque nous utilisons ses extraits avec respect et savoir-faire."
+                                    </div>
+                                    
+                                    <p>Les bourgeons d'épicéa, récoltés au début du printemps, contiennent une concentration remarquable d'huiles essentielles aux propriétés purifiantes et régénérantes. C'est précisément ce moment que nos cueilleurs choisissent pour prélever délicatement ces jeunes pousses gorgées de vitalité.</p>
+                                    
+                                    <p>L'huile essentielle d'épicéa, obtenue par distillation à la vapeur d'eau des aiguilles, possède quant à elle des vertus assainissantes et tonifiantes. Son parfum boisé, à la fois puissant et subtil, évoque instantanément les vastes étendues forestières où l'air est d'une pureté absolue.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Article 3 -->
-                <div class="bg-white">
+                <div class="article-card" data-modal-target="article3">
                     <div class="relative" style="padding-bottom: 75%;">
                         <img src="https://images.unsplash.com/photo-1529310399831-ed472b81d589?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Rencontre" class="absolute inset-0 w-full h-full object-cover">
                     </div>
@@ -361,15 +809,55 @@
                         <span class="text-sm text-[#B38A58]">RENCONTRE</span>
                         <h3 class="serif text-xl text-[#5F694F] my-3">Portrait d'Artisan</h3>
                         <p class="text-gray-600 mb-4">Rencontre avec Marie, cueilleuse de plantes sauvages en Provence.</p>
-                        <a href="#" class="text-[#5F694F] border-b border-[#5F694F] pb-1">Lire l'article</a>
+                        <a href="#" class="open-modal text-[#5F694F] border-b border-[#5F694F] pb-1" data-modal-target="article3">Lire l'article</a>
                     </div>
                 </div>
+
+                <div class="modal-overlay" id="modal-article3">
+                    <div class="modal-container">
+                        <div class="modal-close">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <div class="modal-content">
+                            <div class="article-header">
+                                <img src="https://images.unsplash.com/photo-1529310399831-ed472b81d589?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" alt="Rencontre avec Marie">
+                            </div>
+                            <div class="article-body">
+                                <div class="article-category">RENCONTRE</div>
+                                <h1 class="article-title serif">Portrait d'Artisan: Marie, Cueilleuse de Plantes Sauvages</h1>
+                                
+                                <div class="article-meta">
+                                    <img src="/api/placeholder/100/100" alt="Auteur">
+                                    <div>
+                                        <div>Par Sophie Dubois</div>
+                                        <div>15 mai 2025 · 6 min de lecture</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-content">
+                                    <p>Au cœur des collines provençales, là où le chant des cigales rythme les journées ensoleillées, nous avons rencontré Marie Lavande, une figure discrète mais essentielle dans notre quête d'ingrédients naturels d'exception.</p>
+                                    
+                                    <p>Levée avant l'aube, Marie parcourt les sentiers escarpés à la recherche des plantes qui composeront nos formulations. Son expertise, forgée par quinze années de pratique et un savoir transmis par sa grand-mère, lui permet d'identifier les meilleurs spécimens au moment parfait de leur cycle de vie.</p>
+                                    
+                                    <div class="article-quote serif">
+                                        "La cueillette sauvage est un art de patience. Il faut respecter les cycles naturels et ne prélever que ce que la nature peut nous offrir sans s'appauvrir."
+                                    </div>
+                                    
+                                    <p>Cette philosophie de respect s'inscrit parfaitement dans notre démarche de développement durable. Loin des cultures intensives, Marie pratique une récolte raisonnée, sélectionnant avec soin chaque plante pour préserver la biodiversité locale.</p>
+                                    
+                                    <p>C'est dans la fraîcheur du petit matin que les plantes révèlent leurs meilleures propriétés. Marie nous explique comment elle reconnaît une lavande au potentiel exceptionnel, comment elle évalue la concentration en huiles essentielles d'un romarin sauvage, ou encore à quel moment précis récolter l'immortelle des dunes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
             </div>
         </div>
     </section>
 
     <!-- Newsletter -->
-    <section class="py-20 bg-[#5F694F] text-white">
+    <section id="contact" class="py-20 bg-[#5F694F] text-white">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-3xl serif mb-6">Rejoignez Notre Cercle</h2>
             <p class="mb-8 max-w-2xl mx-auto">
@@ -402,7 +890,7 @@
                         <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
                     </ul>
                 </div>
-                <div>
+                <!--<div>
                     <h3 class="text-lg mb-4">Informations</h3>
                     <ul class="space-y-2">
                         <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Livraison</a></li>
@@ -411,7 +899,7 @@
                         <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Confidentialité</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">CGV</a></li>
                     </ul>
-                </div>
+                </div>-->
                 <div>
                     <h3 class="text-lg mb-4">Contact</h3>
                     <ul class="space-y-2">
@@ -427,12 +915,12 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">© 2023 EYISAVON. Tous droits réservés.</p>
-                <div class="flex space-x-6">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 EYISAVON. Tous droits réservés.</p>
+                <!--<div class="flex space-x-6">
                     <img src="https://via.placeholder.com/40x25" alt="Paiement sécurisé" class="h-6">
                     <img src="https://via.placeholder.com/40x25" alt="Apple Pay" class="h-6">
                     <img src="https://via.placeholder.com/40x25" alt="PayPal" class="h-6">
-                </div>
+                </div>-->
             </div>
         </div>
     </footer>
@@ -481,6 +969,61 @@
                 this.querySelector('img').style.transform = 'scale(1)';
             });
         });
+
+        // Sélectionner tous les boutons qui ouvrent une modale
+        document.querySelectorAll('.open-modal, .article-card').forEach(item => {
+            item.addEventListener('click', event => {
+                // Empêcher le comportement par défaut si c'est un lien
+                if (event.target.tagName === 'A') {
+                    event.preventDefault();
+                }
+                
+                // Trouver la cible de la modale (via l'élément cliqué ou son parent)
+                let target;
+                if (event.target.classList.contains('open-modal')) {
+                    target = event.target.dataset.modalTarget;
+                } else if (event.target.closest('.article-card')) {
+                    target = event.target.closest('.article-card').dataset.modalTarget;
+                }
+                
+                // Si une cible est trouvée, ouvrir la modale correspondante
+                if (target) {
+                    const modal = document.getElementById('modal-' + target);
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                }
+            });
+        });
+        
+        // Fermer les modales avec le bouton de fermeture
+        document.querySelectorAll('.modal-close').forEach(button => {
+            button.addEventListener('click', () => {
+                button.closest('.modal-overlay').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Fermer les modales en cliquant en dehors
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', event => {
+                if (event.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+        
+        // Fermer les modales avec la touche Échap
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+
     </script>
-<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=Yan59/eyisavon" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
 </html>
